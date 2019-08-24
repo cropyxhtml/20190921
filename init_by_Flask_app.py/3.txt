@@ -1,0 +1,6 @@
+getter setter
+속도향상을 위해 lambda 사용 -> type: return value
+@property(feature=representative name of dims set) @context.setter
+
+search -> 디자인 패턴 템플릿 메소드 패턴
+hook method
