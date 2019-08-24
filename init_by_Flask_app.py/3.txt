@@ -3,4 +3,6 @@ getter setter
 @property(feature=representative name of dims set) @context.setter
 
 search -> 디자인 패턴 템플릿 메소드 패턴
-hook method
+hook method, schema
+
+pandas(drop, cut, map, fillna, isnull)
