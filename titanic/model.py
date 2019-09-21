@@ -18,6 +18,15 @@ Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
 '''
 import pandas as pd
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import  KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn import metrics
 class Tmodel:
     def __init__(self):
         self._context = None
@@ -171,3 +180,56 @@ class Tmodel:
         train['FareBand'] = pd.qcut(train['Fare'],4,labels={1,2,3,4})
         test['FareBand'] = pd.qcut(test['Fare'],4,labels={1,2,3,4})
         return [train,test]
+
+    # 검증 알고리즘 작성
+    def hook_test(self):
+        print('KNN 활용한 검증 정확도 {} %'.format(self.accuracy_by_knn(model,dummy)))#2
+        print('Decision Tree 활용한 검증 정확도 {} %'.format(self.accuracy_by_dtree(model.dummy)))#1
+        print('Random Forest 활용한 검증 정확도 {} %'.format(self.accuracy_by_rforest(model.dummy)))#3
+        print('Naive Bayes 활용한 검증 정확도 {} %'.format(self.accuracy_by_nbayes(model.dummy)))#4
+        print('SVM 활용한 검증 정확도 {} %'.format(self.accuracy_by_svm(model.dummy)))#10
+    @staticmethod
+    def create_k_fold():
+        k_fold = KFold(n_splits=10, shuffle=True, random_state=0)
+        return k_fold
+    @staticmethod
+    def create_random_variables(train,X_feature,Y_feature) ->[]:
+        the_X_feature = X_feature
+        the_Y_feature = Y_feature
+        train2, test2 = train_test_split(train, test_size=0.3, random_state=0)
+        train_X = train2[the_X_feature]
+        train_Y = train2[the_Y_feature]
+        test_X = test2[the_X_feature]
+        test_Y = test2[the_Y_feature]
+        return [train_X, train_Y, test_X, test_Y]
+    def accuracy_by_knn(self, model, dummy):
+        clf = KNeighborsClassifier(n_neighbors=13)#n_nighbors 직접 넣어보기
+        k_fold = self.create_k_fold()
+        score = cross_val_score(clf, model, dummy ,cv=k_fold, n_jobs=1,scoring='accuracy')
+        accuracy = round(np.mean(score)*100,2)
+        return accuracy
+
+    def accuracy_by_dtree(self, model, dummy):
+        clf = DecisionTreeClassifier()
+        k_fold = self.create_k_fold()
+        score = cross_val_score(clf, model, dummy, cv=k_fold, n_jobs=1, scoring='accuracy')
+        accuracy = round(np.mean(score) * 100, 2)
+        return accuracy
+    def accuracy_by_rforest(self, model, dummy):
+        clf = RandomForestClassifier(n_estimators=13)
+        k_fold = self.create_k_fold()
+        score = cross_val_score(clf, model, dummy, cv=k_fold, n_jobs=1, scoring='accuracy')
+        accuracy = round(np.mean(score) * 100, 2)
+        return accuracy
+    def accuracy_by_nbayes(self, model, dummy):
+        clf = GaussianNB()
+        k_fold = self.create_k_fold()
+        score = cross_val_score(clf, model, dummy, cv=k_fold, n_jobs=1, scoring='accuracy')
+        accuracy = round(np.mean(score) * 100, 2)
+        return accuracy
+    def accuracy_by_svm(self, model, dummy):
+        clf = SVC()
+        k_fold = self.create_k_fold()
+        score = cross_val_score(clf, model, dummy, cv=k_fold, n_jobs=1, scoring='accuracy')
+        accuracy = round(np.mean(score) * 100, 2)
+        return accuracy

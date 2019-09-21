@@ -1,8 +1,14 @@
-getter setter
+getter setter (from flask import Flask;app=Flask(__name__); @app.route('/');def ~():return 'hello world';if __name__ == '__main__':;app.run()
 속도향상을 위해 lambda 사용 -> type: return value
 @property(feature=representative name of dims set) @context.setter
 
 search -> 디자인 패턴 템플릿 메소드 패턴
 hook method, schema
 
+
 pandas(drop, cut, map, fillna, isnull)
+import googlemaps, folium
+
+ref.https://ezenhq.slack.com/welcome/browse_channels
+https://python-graph-gallery.com/292-choropleth-map-with-folium/
+https://github.com/parkjungkwan/sanjose_flask_titanic/tree/master/titanic
